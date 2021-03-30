@@ -13,11 +13,22 @@ export class FileSharerPluginWeb extends WebPlugin implements FileSharerPlugin {
 
     async share(options: ShareFileOptions): Promise<void> {
         return new Promise<any>((resolve, reject) => {
-            let blob = new Blob(
-                [ this.toByteArray(options.base64Data) ],
-                {type: options.contentType}
-                );
-            FileSaver.saveAs(blob, options.filename);
+            let blob = new Blob([this.toByteArray(options.base64Data)], { type: options.contentType });
+            if (
+                /CriOS/i.test(navigator.userAgent) &&
+                /iphone|ipod|ipad/i.test(navigator.userAgent)
+            ) {
+                const reader = new FileReader()
+                reader.onload = () => {
+                    if (typeof reader.result === 'string') {
+                        window.location.href = reader.result
+                    }
+                }
+                reader.onloadend = () => setTimeout(() => setLoading(false), 250)
+                reader.readAsDataURL(blob)
+            } else {
+                FileSaver.saveAs(blob, options.filename);
+            }
             resolve();
         });
     }
