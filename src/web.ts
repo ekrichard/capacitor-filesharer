@@ -12,7 +12,7 @@ export class FileSharerPluginWeb extends WebPlugin implements FileSharerPlugin {
     }
 
     async share(options: ShareFileOptions): Promise<void> {
-        return new Promise<any>((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             let blob = new Blob([this.toByteArray(options.base64Data)], { type: options.contentType });
             if (
                 /CriOS/i.test(navigator.userAgent) &&

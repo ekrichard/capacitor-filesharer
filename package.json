@@ -9,9 +9,9 @@
     "types": "dist/esm/index.d.ts",
     "scripts": {
         "build": "npm run clean && tsc",
-        "clean": "rm -rf ./dist",
+        "clean": "rd /s /q dist",
         "watch": "tsc --watch",
-        "removePacked": "rm -f byteowls-capacitor-filesharer-*.tgz",
+        "removePacked": "rd /s /q byteowls-capacitor-filesharer-*.tgz",
         "publishLocally": "npm run removePacked && npm run build && npm pack",
         "prepublishOnly": "npm run build"
     },
@@ -53,10 +53,10 @@
         "file-saver": "^2.0.2"
     },
     "devDependencies": {
+        "@capacitor/android": "2.0.0",
         "@capacitor/core": "2.0.0",
         "@capacitor/ios": "2.0.0",
-        "@capacitor/android": "2.0.0",
-        "typescript": "^3.5.3",
-        "@types/file-saver": "2.0.1"
+        "@types/file-saver": "2.0.1",
+        "typescript": "^3.9.9"
     }
 }
